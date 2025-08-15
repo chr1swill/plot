@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -43,46 +44,28 @@ static struct winsize w   = {0};
 	write(STDOUT_FILENO,__T__, __T__len); \
 } while(0);                             \
 
-#define width w.ws_col
-#define height (w.ws_row - 3)
-
 int main(void)
 {
 	signed int i;
-	unsigned short int j;
+	ssize_t n;
 
 	settmodraw();
 
 	getwinsize();
-	char frame[width*height];
-	memset(frame, ' ', width*height);
+	char frame[w.ws_col*(w.ws_row - 3)];
+	memset(frame, ' ', w.ws_col*(w.ws_row - 3));
 
-  i=0;
-	for ( ; i<height; ++i)
+	memset(frame, 'T', w.ws_col);
+	memset(&frame[(w.ws_row - 3 - 1)*w.ws_col], 'B', w.ws_col);
+
+	for ( i=0 ; i<(w.ws_row - 3) ; ++i )
 	{
-		if ( i==0 )
-		{
-			memset(&frame[i*width], 'T', width);
-			continue;
-		}
-		else if ( i==(height-1) )
-		{
-			memset(&frame[i*width], 'B', width);
-			continue;
-		}
-		else
-		{
-			for ( j=0 ; j<width ; ++j )
-			{
-			  if ( j==0 )
-          frame[i*width+j] = 'L';
-				else if ( j==(width-1) )
-					frame[i*width+j] = 'R'; 
-			}
-		}
+		frame[i*w.ws_col] =  'L';
+		frame[i*w.ws_col+w.ws_col-1] =  'R';
 	}
 
-	write(STDOUT_FILENO, frame, width*height);
+	n=write(STDOUT_FILENO, frame, w.ws_col*(w.ws_row - 3));
+	assert( n>0 );
 
 	settmodorg();
 	return 0;

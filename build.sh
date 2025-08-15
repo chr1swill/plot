@@ -1,3 +1,3 @@
 #!/bin/bash
 set -xe;
-gcc -Wall -Wextra -ggdb -o ./bin/main ./src/main.c;
+gcc -O3 -o ./bin/main ./src/main.c;
