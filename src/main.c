@@ -55,10 +55,14 @@ int main(void)
 	char frame[w.ws_col*(w.ws_row - 3)];
 	memset(frame, ' ', w.ws_col*(w.ws_row - 3));
 
-	memset(frame, 'T', w.ws_col);
 	memset(&frame[(w.ws_row - 3 - 1)*w.ws_col], 'B', w.ws_col);
+	memset(frame, 'T', w.ws_col);
+	if ((w.ws_row - 3)%2 == 0)
+		memset(&frame[(w.ws_col - 3)], 'X', w.ws_col);
+	else
+		memset(&frame[(w.ws_col - 3-1)], 'X', w.ws_col);
 
-	for ( i=0 ; i<(w.ws_row - 3) ; ++i )
+	for ( i=0 ; i<(w.ws_row-3) ; ++i )
 	{
 		frame[i*w.ws_col] =  'L';
 		frame[i*w.ws_col+w.ws_col-1] =  'R';
