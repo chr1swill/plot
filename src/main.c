@@ -46,7 +46,7 @@ static struct winsize w   = {0};
 
 int main(void)
 {
-	unsigned short int i;
+	unsigned short i;
 	ssize_t n;
 
 	settmodraw();
@@ -59,14 +59,14 @@ int main(void)
 	memset(&frame[(w.ws_row - 3 - 1)*w.ws_col], 'B', w.ws_col);
 
 	if ((w.ws_row - 3)%2 == 0)
-		memset(&frame[(w.ws_col*((w.ws_row-3)/2))], 'X', w.ws_col);
+		memset(&frame[(unsigned short)(w.ws_col*((w.ws_row-3)*0.5))], 'X', w.ws_col);
 	else
-		memset(&frame[(w.ws_col*((w.ws_row-3+1)/2))], 'X', w.ws_col);
+		memset(&frame[(unsigned short)(w.ws_col*((w.ws_row-3+1)*0.5))], 'X', w.ws_col);
 
 	for ( i=0 ; i<(w.ws_row-3) ; ++i )
 	{
 		frame[i*w.ws_col] =  'L';
-		frame[i*w.ws_col+(unsigned short int)(w.ws_col*0.5)] =  'X';
+		frame[i*w.ws_col+(unsigned short)(w.ws_col*0.5)] =  'X';
 		frame[i*w.ws_col+w.ws_col-1] =  'R';
 	}
 
