@@ -46,7 +46,7 @@ static struct winsize w   = {0};
 
 int main(void)
 {
-	signed int i;
+	unsigned short int i;
 	ssize_t n;
 
 	settmodraw();
@@ -66,6 +66,7 @@ int main(void)
 	for ( i=0 ; i<(w.ws_row-3) ; ++i )
 	{
 		frame[i*w.ws_col] =  'L';
+		frame[i*w.ws_col+(unsigned short int)(w.ws_col*0.5)] =  'X';
 		frame[i*w.ws_col+w.ws_col-1] =  'R';
 	}
 
