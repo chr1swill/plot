@@ -2,8 +2,8 @@
 set -xe;
 
 CC=tcc
-CFLAGS="-Wall -Wextra -pedantic -ggdb"
 SRC=./bin/main
 DST=./src/main.c
+CFLAGS="-Wall -Wextra -pedantic -ggdb"
 
 ${CC} ${CFLAGS} -o ${SRC} ${DST}
