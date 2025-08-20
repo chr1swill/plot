@@ -55,8 +55,9 @@ int main(void)
 	char frame[w.ws_col*(w.ws_row - 3)];
 	memset(frame, ' ', w.ws_col*(w.ws_row - 3));
 
-	memset(&frame[(w.ws_row - 3 - 1)*w.ws_col], 'B', w.ws_col);
 	memset(frame, 'T', w.ws_col);
+	memset(&frame[(w.ws_row - 3 - 1)*w.ws_col], 'B', w.ws_col);
+
 	if ((w.ws_row - 3)%2 == 0)
 		memset(&frame[(w.ws_col - 3)], 'X', w.ws_col);
 	else
